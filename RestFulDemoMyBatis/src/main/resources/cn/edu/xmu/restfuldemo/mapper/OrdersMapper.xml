@@ -75,10 +75,40 @@
     </resultMap>
     
     <select id="findOrdersWithOrderItem" parameterType="OrdersPo" resultMap="BaseResultMap">
-        SELECT *
-        FROM orders o,order_item oi
-        WHERE o.id = #{id} AND oi.order_id=#{id}
+        SELECT
+        o.id as id,
+        order_sn,
+        pid,
+        order_type,
+        state,
+        substate,
+        o.gmt_create as gmt_create,
+        o.gmt_modified as gmt_modified,
+        confirm_time,
+        origin_price,
+        discount_price,
+        freight_price,
+        rebate_num,
+        message,
+        address,
+        mobile,
+        consignee,
+        coupon_id,
+        presale_id,
+        shipment_sn,
+        goods_sku_id,
+        order_id,
+        name,
+        quantity,
+        price,
+        discount,
+        oi.coupon_activity_id,
+        be_share_id
+        FROM orders o LEFT JOIN order_item oi
+        ON o.id = oi.order_id
+        WHERE o.id = #{id}
     </select>
+
 
 </mapper>
 
