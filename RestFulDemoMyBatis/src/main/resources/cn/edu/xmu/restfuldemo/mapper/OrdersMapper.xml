@@ -37,8 +37,44 @@
             <result property="beSharedId" column="be_shared_id"/>
         </collection>
     </resultMap>
-
-    <select id="findOrdersWithOrderItem" parameterType="OrdersPo" resultMap="OrdersOrderItemResultMap">
+    
+    <resultMap id="BaseResultMap" type="cn.edu.xmu.restfuldemo.model.OrdersRetVo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="order_sn" jdbcType="VARCHAR" property="orderSn"/>
+        <result column="pid" jdbcType="BIGINT" property="pid"/>
+        <result column="consignee" jdbcType="VARCHAR" property="consignee"/>
+        <result column="region_id" jdbcType="BIGINT" property="regionId"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="message" jdbcType="VARCHAR" property="message"/>
+        <result column="order_type" jdbcType="TINYINT" property="orderType"/>
+        <result column="freight_price" jdbcType="BIGINT" property="freightPrice"/>
+        <result column="coupon_id" jdbcType="BIGINT" property="couponId"/>
+        <result column="discount_price" jdbcType="BIGINT" property="discountPrice"/>
+        <result column="origin_price" jdbcType="BIGINT" property="originPrice"/>
+        <result column="presale_id" jdbcType="BIGINT" property="presaleId"/>
+        <result column="rebate_num" jdbcType="INTEGER" property="rebateNum"/>
+        <result column="confirm_time" jdbcType="TIMESTAMP" property="confirmTime"/>
+        <result column="shipment_sn" jdbcType="VARCHAR" property="shipmentSn"/>
+        <result column="state" jdbcType="TINYINT" property="state"/>
+        <result column="substate" jdbcType="TINYINT" property="subState"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+        <result column="groupon_id" jdbcType="BIGINT" property="grouponId"/>
+        <!-- 一对多关联映射使用:collection -->
+        <collection property="orderItems" javaType="List" column="id" ofType="cn.edu.xmu.restfuldemo.model.OrderItemRetVo" fetchType="lazy">
+            <result column="order_id" jdbcType="BIGINT" property="orderId"/>
+            <result column="goods_sku_id" jdbcType="BIGINT" property="skuId"/>
+            <result column="quantity" jdbcType="INTEGER" property="quantity"/>
+            <result column="price" jdbcType="BIGINT" property="price"/>
+            <result column="discount" jdbcType="BIGINT" property="discount"/>
+            <result column="name" jdbcType="VARCHAR" property="name"/>
+            <result column="coupon_activity_id" jdbcType="BIGINT" property="couponActId"/>
+            <result column="be_share_id" jdbcType="BIGINT" property="beShareId"/>
+        </collection>
+    </resultMap>
+    
+    <select id="findOrdersWithOrderItem" parameterType="OrdersPo" resultMap="BaseResultMap">
         SELECT *
         FROM orders o,order_item oi
         WHERE o.id = #{id} AND oi.order_id=#{id}
