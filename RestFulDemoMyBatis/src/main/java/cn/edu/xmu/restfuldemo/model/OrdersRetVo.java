@@ -33,7 +33,7 @@ public class OrdersRetVo implements VoObject{
     private Byte state;
 
     @ApiModelProperty(value = "订单子状态")
-    private Byte substate;
+    private Byte subState;
 
     private LocalDateTime gmtCreate;
 
@@ -90,7 +90,7 @@ public class OrdersRetVo implements VoObject{
         this.pid=orders.getPid();
         this.orderType=orders.getOrderType();
         this.state=orders.getState();
-        this.substate=orders.getSubstate();
+        this.subState=orders.getSubstate();
         this.gmtCreate=orders.getGmtCreate();
         this.gmtModified=orders.getGmtModified();
         this.confirmTime=orders.getConfirmTime();
